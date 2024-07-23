@@ -1,0 +1,11 @@
+[
+  {
+    "name": "Dynamic Lights Home Assistant",
+    "description": "Extension to sync your lights to the current album cover color using Home Assistant",
+    "preview": "img/screenshot.png",
+    "main": "app.tsx",
+    "readme": "README.md",
+    "authors": [{ "name": "muckelba", "url": "https://github.com/muckelba" }],
+    "tags": ["homeassistant", "Home Assistant", "album cover", "dynamic lights"]
+  }
+]

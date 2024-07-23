@@ -22,7 +22,7 @@ export function getSettings(): HASettings | null {
 
 function openCredentialsModal(): void {
   Spicetify.PopupModal.display({
-    title: "Set up Homeassistant connection",
+    title: "Set up Home Assistant connection",
     // `content:` expects a string or HTMLElement, but we are providing a React.JSX.Element. I dont know how to fix that.
     // @ts-ignore
     content: <HaModal />,

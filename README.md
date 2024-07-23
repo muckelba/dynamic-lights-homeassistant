@@ -1,16 +1,27 @@
-# Spicetify Creator
+# Dynamic Lights Home Assistant
 
-Spicetify Creator is a tool to compile modern Typescript/Javascript code to Spicetify extensions and custom apps.
+A [Spicetify](https://spicetify.app/) extension to set your RGB lights to the current album cover color using Home Assistant.
 
-## Features
-- Typescript and React syntax
-- Import node packages
-- CSS/SCSS with PostCSS support
-- Extremely fast compile time with esbuild.
-- Plugins
+## Setup
 
-## Docs
-Check out [Spicetify's docs](https://spicetify.app/docs/development/spicetify-creator/the-basics)!
+Install the extension using the spicetify marketplace and configure it by clicking on your profile picture in the top right corner and choose "Home Assistant Settings".
 
-## Made with Spicetify Creator
-- https://github.com/spicetify/spicetify-creator
+### Home Assistant URL
+
+This is your URL to Home Assistant. It has to start with `http://` or `https://`.
+
+### Bearer Token
+
+This is the token that allows the extension to talk to Home Assistant. Go to your HA profile, create a token and give it a proper name. See [here](https://community.home-assistant.io/t/how-to-get-long-lived-access-token/162159/5) for a better tutorial.
+
+### Light Entities
+
+This is a comma seperated list of lights that should change their color. Use the entity ID (without the `light.` prefix), not the display name.
+
+!["tasmota" in this case](img/screenshot_2.png)
+
+#### Example
+
+```
+tasmota,wled,light_1
+```
