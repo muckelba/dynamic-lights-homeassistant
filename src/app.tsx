@@ -30,21 +30,6 @@ function openCredentialsModal(): void {
   });
 }
 
-function extractRGBValues(rgbString: string): [number, number, number] {
-  const regex = /rgb\((\d+),\s*(\d+),\s*(\d+)\)/;
-  const match = rgbString.match(regex);
-
-  if (!match) {
-    throw new Error("Invalid RGB string format");
-  }
-
-  return match.slice(1, 4).map((value) => parseInt(value, 10)) as [
-    number,
-    number,
-    number
-  ];
-}
-
 async function changeHALight(
   HaUrl: string,
   token: string,
@@ -71,6 +56,15 @@ async function changeHALight(
   }
 }
 
+const hexToRgb = (hex: string): [number, number, number] => {
+  hex = hex.replace(/^#/, "");
+  const bigint = parseInt(hex, 16);
+  const r = (bigint >> 16) & 255;
+  const g = (bigint >> 8) & 255;
+  const b = bigint & 255;
+  return [r, g, b];
+};
+
 async function handleSongChange(): Promise<void> {
   const settings = getSettings();
   if (!settings) {
@@ -92,17 +86,21 @@ async function handleSongChange(): Promise<void> {
   }
 
   try {
-    const textColor = getComputedStyle(
-      document.documentElement
-    ).getPropertyValue("--spice-text");
-    const colorArray = extractRGBValues(textColor);
+    // Get color from current track
+    const currentTrack = Spicetify.Player.data.item;
+    const colors = await Spicetify.colorExtractor(currentTrack.uri);
 
     const entityArray = settings.entities
       .split(",")
       .map((value) => value.trim());
 
     for (const entity of entityArray) {
-      await changeHALight(settings.url, settings.token, entity, colorArray);
+      await changeHALight(
+        settings.url,
+        settings.token,
+        entity,
+        hexToRgb(colors.VIBRANT) // TODO: make this configurable
+      );
     }
   } catch (error) {
     console.error("Error changing lights:", error);

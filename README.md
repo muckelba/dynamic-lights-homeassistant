@@ -2,9 +2,15 @@
 
 A [Spicetify](https://spicetify.app/) extension to set your RGB lights to the current album cover color using Home Assistant.
 
+## Demo
+
+![A GIF showing the color change of a lamp in realtime](img/demo.gif)
+
+![The settings screen](img/screenshot.png)
+
 ## Setup
 
-Install the extension using the spicetify marketplace and configure it by clicking on your profile picture in the top right corner and choose "Home Assistant Settings".
+Install the extension using the [spicetify marketplace](https://github.com/spicetify/marketplace/) and configure it by clicking on your profile picture in the top right corner and choose "Home Assistant Settings".
 
 ### Home Assistant URL
 
