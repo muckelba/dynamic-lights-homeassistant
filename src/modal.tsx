@@ -90,7 +90,10 @@ const HaModal: React.FC = () => {
           />
         </div>
         <div className="description">
-          Enter your long-lived access token from Home Assistant
+          Enter your long-lived access token from Home Assistant.{" "}
+          <a href="https://community.home-assistant.io/t/how-to-get-long-lived-access-token/162159/5">
+            Tutorial
+          </a>
         </div>
       </div>
 
