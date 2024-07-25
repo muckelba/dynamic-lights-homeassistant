@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { getSettings, LOCAL_STORAGE_KEY } from "./app";
 
 interface HASettings {
@@ -44,10 +44,10 @@ const HaModal: React.FC = () => {
   };
 
   return (
-    <form className="ha-modal" onSubmit={handleSubmit}>
-      <div className="toggle-container">
+    <form className="haModal" onSubmit={handleSubmit}>
+      <div className="toggleContainer">
         <label htmlFor="enabled">Enable Home Assistant Integration:</label>
-        <label className="toggle-switch">
+        <label className="toggleSwitch">
           <input
             type="checkbox"
             id="enabled"
@@ -59,8 +59,8 @@ const HaModal: React.FC = () => {
         </label>
       </div>
 
-      <div className="form-group">
-        <div className="input-container">
+      <div className="formGroup">
+        <div className="inputContainer">
           <label htmlFor="url">Home Assistant URL:</label>
           <input
             type="url"
@@ -77,8 +77,8 @@ const HaModal: React.FC = () => {
         </div>
       </div>
 
-      <div className="form-group">
-        <div className="input-container">
+      <div className="formGroup">
+        <div className="inputContainer">
           <label htmlFor="token">Bearer Token:</label>
           <input
             type="password"
@@ -97,8 +97,8 @@ const HaModal: React.FC = () => {
         </div>
       </div>
 
-      <div className="form-group">
-        <div className="input-container">
+      <div className="formGroup">
+        <div className="inputContainer">
           <label htmlFor="entities">Light Entities:</label>
           <input
             type="text"
@@ -115,7 +115,7 @@ const HaModal: React.FC = () => {
         </div>
       </div>
 
-      <div className="submit-container">
+      <div className="submitContainer">
         <button type="submit">Save settings</button>
       </div>
     </form>

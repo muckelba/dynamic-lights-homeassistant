@@ -1,8 +1,8 @@
-.ha-modal {
-  .form-group {
+.haModal {
+  .formGroup {
     margin-bottom: 20px;
   }
-  .input-container {
+  .inputContainer {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -17,21 +17,19 @@
     border-style: solid;
     border-color: var(--spice-sidebar);
     background-color: var(--spice-sidebar) !important;
+    border-radius: 8px;
   }
   .description {
     font-size: 0.8em;
     color: #666;
     margin-top: 5px;
   }
-  .submit-container {
+  .submitContainer {
     text-align: right;
   }
   /* Stolen from https://github.com/spicetify/marketplace/blob/main/src/styles/modules/button.module.scss */
   button {
     box-sizing: border-box;
-    font-family: var(--font-family, spotify-circular), Helvetica, Arial,
-      sans-serif;
-    -webkit-tap-highlight-color: transparent;
     font-size: 1rem;
     line-height: 1.5rem;
     font-weight: 700;
@@ -79,26 +77,21 @@
       box-shadow: none;
       transform: scale(1);
     }
-
-    &:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
   }
-  .toggle-container {
+  .toggleContainer {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
   }
-  .toggle-switch {
+  .toggleSwitch {
     position: relative;
     display: inline-block;
     width: 60px;
     height: 34px;
     flex-basis: auto;
   }
-  .toggle-switch input {
+  .toggleSwitch input {
     opacity: 0;
     width: 0;
     height: 0;

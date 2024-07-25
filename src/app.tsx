@@ -1,9 +1,10 @@
 import axios from "axios";
-import "./styles.css";
-import HaModal from "./modal";
 import React from "react";
+import HaModal from "./modal";
+import "./styles.css";
 
 export const LOCAL_STORAGE_KEY = `ha-settings`;
+let currentColor: string;
 
 interface HASettings {
   enabled: boolean;
@@ -89,6 +90,14 @@ async function handleSongChange(): Promise<void> {
     // Get color from current track
     const currentTrack = Spicetify.Player.data.item;
     const colors = await Spicetify.colorExtractor(currentTrack.uri);
+    const selectedColor = colors.VIBRANT; // TODO: make this configurable
+
+    // Check if color is the same
+    if (currentColor === selectedColor) {
+      console.debug("Same color, not changing");
+      return;
+    }
+    currentColor = selectedColor;
 
     const entityArray = settings.entities
       .split(",")
@@ -99,7 +108,7 @@ async function handleSongChange(): Promise<void> {
         settings.url,
         settings.token,
         entity,
-        hexToRgb(colors.VIBRANT) // TODO: make this configurable
+        hexToRgb(selectedColor)
       );
     }
   } catch (error) {
@@ -110,6 +119,11 @@ async function handleSongChange(): Promise<void> {
 
 function main(): void {
   Spicetify.Player.addEventListener("songchange", handleSongChange);
+  Spicetify.Player.addEventListener("onplaypause", (event) => {
+    if (!event?.data.isPaused) {
+      handleSongChange();
+    }
+  });
 
   new Spicetify.Menu.Item(
     "Home Assistant Settings",
