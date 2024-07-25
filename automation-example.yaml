@@ -1,0 +1,24 @@
+alias: Spotify Lights
+description: ""
+trigger:
+  - platform: webhook
+    allowed_methods:
+      - POST
+    local_only: true
+    webhook_id: "REPLACEME"
+condition:
+  - condition: sun
+    before: sunset
+    before_offset: "10:00:00"
+action:
+  - service: light.turn_on
+    metadata: {}
+    target:
+      entity_id:
+        - light.light_1
+        - light.ceiling_lights
+    data:
+      transition: 1
+      rgb_color: "{{trigger.json.rgb}}"
+    enabled: true
+mode: single

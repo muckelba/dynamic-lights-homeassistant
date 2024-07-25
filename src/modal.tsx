@@ -1,19 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { getSettings, LOCAL_STORAGE_KEY } from "./app";
-
-interface HASettings {
-  enabled: boolean;
-  url: string;
-  token: string;
-  entities: string;
-}
+import { getSettings, HASettings, LOCAL_STORAGE_KEY } from "./app";
 
 const HaModal: React.FC = () => {
   const [settings, setSettings] = useState<HASettings>({
     enabled: true,
     url: "",
-    token: "",
-    entities: "",
+    webhookId: "",
   });
 
   useEffect(() => {
@@ -79,39 +71,21 @@ const HaModal: React.FC = () => {
 
       <div className="formGroup">
         <div className="inputContainer">
-          <label htmlFor="token">Bearer Token:</label>
+          <label htmlFor="webhookId">Webhook ID:</label>
           <input
             type="password"
-            id="token"
-            name="token"
-            value={settings.token}
+            id="webhookId"
+            name="webhookId"
+            value={settings.webhookId}
             onChange={handleChange}
             required
           />
         </div>
         <div className="description">
-          Enter your long-lived access token from Home Assistant.{" "}
-          <a href="https://community.home-assistant.io/t/how-to-get-long-lived-access-token/162159/5">
-            Tutorial
+          Enter your automation Webhook ID. See {""}
+          <a href="https://github.com/muckelba/dynamic-lights-homeassistant">
+            README
           </a>
-        </div>
-      </div>
-
-      <div className="formGroup">
-        <div className="inputContainer">
-          <label htmlFor="entities">Light Entities:</label>
-          <input
-            type="text"
-            id="entities"
-            name="entities"
-            value={settings.entities}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="description">
-          Provide a comma-separated list of Home Assistant light entities. Must
-          be lights capable of color (e.g., lamp_1,lamp_2)
         </div>
       </div>
 

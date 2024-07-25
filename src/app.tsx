@@ -6,11 +6,10 @@ import "./styles.css";
 export const LOCAL_STORAGE_KEY = `ha-settings`;
 let currentColor: string;
 
-interface HASettings {
+export interface HASettings {
   enabled: boolean;
   url: string;
-  token: string;
-  entities: string;
+  webhookId: string;
 }
 
 export function getSettings(): HASettings | null {
@@ -34,26 +33,19 @@ function openCredentialsModal(): void {
 async function changeHALight(
   HaUrl: string,
   token: string,
-  entity_id: string,
   color: [number, number, number]
 ): Promise<void> {
-  const url = `${HaUrl}/api/services/light/turn_on`;
+  const url = `${HaUrl}/api/webhook/${token}`;
   const headers = {
-    Authorization: `Bearer ${token}`,
     "Content-Type": "application/json",
   };
 
-  const data = {
-    entity_id: `light.${entity_id}`,
-    rgb_color: color,
-  };
-
   try {
-    await axios.post(url, data, { headers });
-    console.debug(`Set ${entity_id} to ${color}`);
+    await axios.post(url, { rgb: color }, { headers });
+    console.debug(`Set lights to ${color}`);
   } catch (error) {
     console.error("Error turning on light:", error);
-    Spicetify.showNotification(`Failed to change light: ${entity_id}`, true);
+    Spicetify.showNotification(`Failed to change lights`, true);
   }
 }
 
@@ -77,7 +69,7 @@ async function handleSongChange(): Promise<void> {
     return;
   }
 
-  if (!settings.url || !settings.token || !settings.entities) {
+  if (!settings.url || !settings.webhookId) {
     Spicetify.showNotification(
       "Home Assistant settings incomplete",
       false,
@@ -99,18 +91,11 @@ async function handleSongChange(): Promise<void> {
     }
     currentColor = selectedColor;
 
-    const entityArray = settings.entities
-      .split(",")
-      .map((value) => value.trim());
-
-    for (const entity of entityArray) {
-      await changeHALight(
-        settings.url,
-        settings.token,
-        entity,
-        hexToRgb(selectedColor)
-      );
-    }
+    await changeHALight(
+      settings.url,
+      settings.webhookId,
+      hexToRgb(selectedColor)
+    );
   } catch (error) {
     console.error("Error changing lights:", error);
     Spicetify.showNotification("Failed to change lights", true);
