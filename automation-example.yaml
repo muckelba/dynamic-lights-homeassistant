@@ -8,8 +8,8 @@ trigger:
     webhook_id: "REPLACEME"
 condition:
   - condition: sun
-    before: sunset
-    before_offset: "10:00:00"
+    after: sunset
+    after_offset: "-02:00:00"
 action:
   - service: light.turn_on
     metadata: {}

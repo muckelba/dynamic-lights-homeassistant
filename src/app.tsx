@@ -1,7 +1,7 @@
 import axios from "axios";
 import React from "react";
 import HaModal from "./modal";
-import "./styles.css";
+import "./styles.scss";
 
 export const LOCAL_STORAGE_KEY = `ha-settings`;
 let currentColor: string;

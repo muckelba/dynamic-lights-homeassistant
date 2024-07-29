@@ -33,7 +33,7 @@ A [Spicetify](https://spicetify.app/) extension that dynamically sets your RGB l
    ```
 
 > Note: You can modify the automation, but ensure you keep the `"{{trigger.json.rgb}}"` string intact.  
-> Have a look at [automation-example.yaml](automation-example.yaml) for a full automation example
+> Have a look at [automation-example.yaml](automation-example.yaml) for a full automation example.
 
 ### 2. Spicetify Extension Installation
 

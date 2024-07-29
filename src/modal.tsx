@@ -36,63 +36,73 @@ const HaModal: React.FC = () => {
   };
 
   return (
-    <form className="haModal" onSubmit={handleSubmit}>
-      <div className="toggleContainer">
-        <label htmlFor="enabled">Enable Home Assistant Integration:</label>
-        <label className="toggleSwitch">
-          <input
-            type="checkbox"
-            id="enabled"
-            name="enabled"
-            checked={settings.enabled}
-            onChange={handleChange}
-          />
-          <span className="slider"></span>
-        </label>
-      </div>
+    <div className="ha-settings">
+      <div className="container">
+        <form onSubmit={handleSubmit}>
+          <div className="setting-row">
+            <div className="setting-content">
+              <label htmlFor="enabled">Enable Home Assistant Integration</label>
+              <label className="switch">
+                <input
+                  type="checkbox"
+                  id="enabled"
+                  name="enabled"
+                  checked={settings.enabled}
+                  onChange={handleChange}
+                />
+                <span className="slider round"></span>
+              </label>
+            </div>
+            <div className="description">Turn the extension on or off</div>
+          </div>
 
-      <div className="formGroup">
-        <div className="inputContainer">
-          <label htmlFor="url">Home Assistant URL:</label>
-          <input
-            type="url"
-            id="url"
-            name="url"
-            value={settings.url}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="description">
-          Enter the URL of your Home Assistant instance (e.g.,
-          http://homeassistant.local:8123)
-        </div>
-      </div>
+          <div className="setting-row">
+            <div className="setting-content">
+              <label htmlFor="url">Home Assistant URL</label>
+              <input
+                type="url"
+                placeholder="http://homeassistant.local:8123"
+                id="url"
+                name="url"
+                value={settings.url}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="description">
+              Enter the URL of your Home Assistant instance (e.g.,
+              http://homeassistant.local:8123)
+            </div>
+          </div>
 
-      <div className="formGroup">
-        <div className="inputContainer">
-          <label htmlFor="webhookId">Webhook ID:</label>
-          <input
-            type="password"
-            id="webhookId"
-            name="webhookId"
-            value={settings.webhookId}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="description">
-          Enter your automation Webhook ID. See {""}
-          <a href="https://github.com/muckelba/dynamic-lights-homeassistant">
-            README
-          </a>
-        </div>
-      </div>
+          <div className="setting-row">
+            <div className="setting-content">
+              <label htmlFor="webhookId">Webhook ID</label>
+              <input
+                type="password"
+                placeholder="Enter webhook ID"
+                id="webhookId"
+                name="webhookId"
+                value={settings.webhookId}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="description">
+              Enter your automation Webhook ID, see the {""}
+              <a href="https://github.com/muckelba/dynamic-lights-homeassistant?tab=readme-ov-file#1-home-assistant-configuration">
+                README
+              </a>{" "}
+              for more information
+            </div>
+          </div>
 
-      <div className="submitContainer">
-        <button type="submit">Save settings</button>
+          <div className="button-row">
+            <button type="submit">Save</button>
+          </div>
+        </form>
       </div>
-    </form>
+    </div>
   );
 };
 
