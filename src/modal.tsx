@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getSettings, HASettings, LOCAL_STORAGE_KEY } from "./app";
 
 const HaModal: React.FC = () => {
+  // Claude did all the react stuff, i have no clue about react
   const [settings, setSettings] = useState<HASettings>({
     enabled: true,
     url: "",

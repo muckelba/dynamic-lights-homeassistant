@@ -82,7 +82,7 @@ async function handleSongChange(): Promise<void> {
     // Get color from current track
     const currentTrack = Spicetify.Player.data.item;
     const colors = await Spicetify.colorExtractor(currentTrack.uri);
-    const selectedColor = colors.VIBRANT; // TODO: make this configurable
+    const selectedColor = colors.VIBRANT;
 
     // Check if color is the same
     if (currentColor === selectedColor) {
