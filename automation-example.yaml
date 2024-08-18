@@ -6,10 +6,15 @@ trigger:
       - POST
     local_only: true
     webhook_id: "REPLACEME"
+# Optional, makes sure that the automation is only triggered when it's two hours before sunset or later.
 condition:
-  - condition: sun
-    after: sunset
-    after_offset: "-02:00:00"
+  - condition: or
+    conditions:
+      - condition: sun
+        before: sunrise
+      - condition: sun
+        after: sunset
+        after_offset: "-02:00:00"
 action:
   - service: light.turn_on
     metadata: {}

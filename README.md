@@ -10,7 +10,7 @@ A [Spicetify](https://spicetify.app/) extension that dynamically sets your RGB l
 
 ## Prerequisites
 
-- [Home Assistant](https://www.home-assistant.io/) set up and running
+- [Home Assistant](https://www.home-assistant.io/) set up and running **with a valid HTTPS URL**.
 - [Spicetify](https://spicetify.app/) installed on your Spotify client
 - RGB-capable smart lights connected to Home Assistant
 
