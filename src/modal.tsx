@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { getSettings, HASettings, LOCAL_STORAGE_KEY } from "./app";
 
+// Claude did all the react stuff, i have no clue about react
 const HaModal: React.FC = () => {
-  // Claude did all the react stuff, i have no clue about react
   const [settings, setSettings] = useState<HASettings>({
     enabled: true,
     url: "",
     webhookId: "",
   });
+
+  const [urlError, setUrlError] = useState<string>("");
 
   useEffect(() => {
     const savedSettings = getSettings();
@@ -16,16 +18,42 @@ const HaModal: React.FC = () => {
     }
   }, []);
 
+  const validateUrl = (url: string): boolean => {
+    try {
+      const urlObj = new URL(url);
+      return urlObj.protocol === "https:";
+    } catch {
+      return false;
+    }
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
+    const newValue = type === "checkbox" ? checked : value;
+
+    if (name === "url") {
+      if (value && !validateUrl(value)) {
+        setUrlError("URL must start with https://");
+      } else {
+        setUrlError("");
+      }
+    }
+
     setSettings((prevSettings) => ({
       ...prevSettings,
-      [name]: type === "checkbox" ? checked : value,
+      [name]: newValue,
     }));
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!validateUrl(settings.url)) {
+      setUrlError("URL must start with https://");
+      Spicetify.showNotification("Invalid URL: Must use HTTPS", true);
+      return;
+    }
+
     try {
       localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(settings));
       Spicetify.showNotification("Settings saved successfully", false);
@@ -62,17 +90,24 @@ const HaModal: React.FC = () => {
               <label htmlFor="url">Home Assistant URL</label>
               <input
                 type="url"
-                placeholder="http://homeassistant.local:8123"
+                placeholder="https://homeassistant.example.com"
                 id="url"
                 name="url"
                 value={settings.url}
                 onChange={handleChange}
                 required
+                className={urlError ? "error" : ""}
               />
             </div>
             <div className="description">
+              {urlError && <div className="error-message">{urlError}</div>}
               Enter the URL of your Home Assistant instance (e.g.,
-              http://homeassistant.local:8123)
+              https://homeassistant.example.com). Due to the{" "}
+              <a href="https://developer.mozilla.org/en-US/docs/Web/Security/Mixed_content">
+                mixed content
+              </a>{" "}
+              policy of Chromium, the Home Assistant instance has to provide a
+              valid SSL certificate.
             </div>
           </div>
 
