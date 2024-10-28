@@ -4,9 +4,8 @@ A [Spicetify](https://spicetify.app/) extension that dynamically sets your RGB l
 
 ## Demo
 
-![A GIF showing the color change of a lamp in realtime](img/demo.gif)
-
-![The settings screen](img/screenshot.png)
+<img src="img/demo.gif" width="600" alt="A GIF showing the color change of a lamp in realtime">
+<img src="img/screenshot.png" width="600" alt="The settings screen">
 
 ## Prerequisites
 
