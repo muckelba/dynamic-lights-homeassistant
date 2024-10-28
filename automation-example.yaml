@@ -1,13 +1,14 @@
 alias: Spotify Lights
 description: ""
-trigger:
-  - platform: webhook
-    allowed_methods:
+mode: single
+triggers:
+  - allowed_methods:
       - POST
     local_only: true
     webhook_id: "REPLACEME"
+    trigger: webhook
 # Optional, makes sure that the automation is only triggered when it's two hours before sunset or later.
-condition:
+conditions:
   - condition: or
     conditions:
       - condition: sun
@@ -15,9 +16,8 @@ condition:
       - condition: sun
         after: sunset
         after_offset: "-02:00:00"
-action:
-  - service: light.turn_on
-    metadata: {}
+actions:
+  - metadata: {}
     target:
       entity_id:
         - light.light_1
@@ -26,4 +26,4 @@ action:
       transition: 1
       rgb_color: "{{trigger.json.rgb}}"
     enabled: true
-mode: single
+    action: light.turn_on
