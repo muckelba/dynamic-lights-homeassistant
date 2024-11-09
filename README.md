@@ -21,19 +21,23 @@ A [Spicetify](https://spicetify.app/) extension that dynamically sets your RGB l
 1. Create a new automation in Home Assistant
 2. Add a webhook trigger
 3. Copy the Webhook ID (you'll need this later)
-4. (Optional) Add conditions (e.g., only run 2 hours before sunset)
-5. Add a `Light: Turn on` action
-6. Select your light entities
-7. Switch to the YAML editor (click the three dots)
-8. Paste the following code:
+4. (Optional) Click on the cog icon on the right and uncheck the "Only accessible from the local network" option when using some external proxy (e.g. [Nabu Casa Cloud](https://www.nabucasa.com/) or [cloudflared](https://github.com/cloudflare/cloudflared))
+5. (Optional) Add conditions (e.g., only run 2 hours before sunset)
+6. Add a `Light: Turn on` action
+7. Select your light entities
+8. Switch to the YAML editor (click the three dots)
+9. Paste the following code:
 
    ```yaml
    data:
      rgb_color: "{{trigger.json.rgb}}"
    ```
 
-> Note: You can modify the automation, but ensure you keep the `"{{trigger.json.rgb}}"` string intact.  
-> Have a look at [automation-example.yaml](automation-example.yaml) for a full automation example.
+> [!NOTE]
+>
+> - You can modify the automation, but ensure you keep the `"{{trigger.json.rgb}}"` string intact.
+> - Have a look at [automation-example.yaml](automation-example.yaml) for a full automation example.
+> - When using Yeelight lamps, you may want to enable their [music mode](https://www.home-assistant.io/integrations/yeelight/#music-mode).
 
 ### 2. Spicetify Extension Installation
 
