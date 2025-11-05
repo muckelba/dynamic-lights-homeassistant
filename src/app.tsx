@@ -4,7 +4,7 @@ import HaModal from "./modal";
 import "./styles.scss";
 
 export const LOCAL_STORAGE_KEY = `ha-settings`;
-let currentColor: string;
+let currentColor: Spicetify.rgb;
 
 export interface HASettings {
   enabled: boolean;
@@ -33,7 +33,7 @@ function openCredentialsModal(): void {
 async function changeHALight(
   HaUrl: string,
   token: string,
-  color: [number, number, number]
+  color: Spicetify.rgb
 ): Promise<void> {
   const url = `${HaUrl}/api/webhook/${token}`;
   const headers = {
@@ -41,22 +41,13 @@ async function changeHALight(
   };
 
   try {
-    await axios.post(url, { rgb: color }, { headers });
+    await axios.post(url, { rgb: [color.r, color.g, color.b] }, { headers });
     console.debug(`Set lights to ${color}`);
   } catch (error) {
     console.error("Error turning on light:", error);
     Spicetify.showNotification(`Failed to change lights`, true);
   }
 }
-
-const hexToRgb = (hex: string): [number, number, number] => {
-  hex = hex.replace(/^#/, "");
-  const bigint = parseInt(hex, 16);
-  const r = (bigint >> 16) & 255;
-  const g = (bigint >> 8) & 255;
-  const b = bigint & 255;
-  return [r, g, b];
-};
 
 async function handleSongChange(): Promise<void> {
   const settings = getSettings();
@@ -81,21 +72,19 @@ async function handleSongChange(): Promise<void> {
   try {
     // Get color from current track
     const currentTrack = Spicetify.Player.data.item;
-    const colors = await Spicetify.colorExtractor(currentTrack.uri);
-    const selectedColor = colors.VIBRANT;
+    const colors = await Spicetify.extractColorPreset(
+      currentTrack.metadata.image_url
+    );
+    const selectedColor = colors[0].colorRaw.rgb;
 
-    // Check if color is the same
+    // Check if color is the samee
     if (currentColor === selectedColor) {
       console.debug("Same color, not changing");
       return;
     }
     currentColor = selectedColor;
 
-    await changeHALight(
-      settings.url,
-      settings.webhookId,
-      hexToRgb(selectedColor)
-    );
+    await changeHALight(settings.url, settings.webhookId, selectedColor);
   } catch (error) {
     console.error("Error changing lights:", error);
     Spicetify.showNotification("Failed to change lights", true);
