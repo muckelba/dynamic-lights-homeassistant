@@ -77,7 +77,8 @@ const buildOptions = {
 if (isWatch) {
   const ctx = await esbuild.context(buildOptions);
   await ctx.watch();
-  console.log(`Watching for changes... Output: ${outfile}`);
+  console.log(`Output: ${outfile}`);
+  console.log(`Watching for changes... `);
 } else {
   await esbuild.build(buildOptions);
   console.log(`Build complete: ${outfile}`);
