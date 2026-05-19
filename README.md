@@ -53,43 +53,35 @@ A [Spicetify](https://spicetify.app/) extension that dynamically sets your RGB l
 > [!CAUTION]
 > Please make sure you are _**only**_ pasting the Webhook _**ID**_ and not the Webhook _**URL**_, this will result in a 'Failed to change lights' error.
 
-## Local Development
+## Contributing
 
-### Building the Extension
+Contributions are welcome! Please open a Pull Request against the `main` branch.
+
+### Local Development
 
 1. Install dependencies:
    ```bash
    npm install
    ```
 
-2. Start the watch mode for development (auto-rebuilds on file changes):
+2. Start watch mode (auto-rebuilds on file changes):
    ```bash
    npm run watch
    ```
 
-3. The built files will be in the `dist/` folder.
+3. Build once for testing (required before loading into Spicetify):
+   ```bash
+   npm run build-local
+   ```
 
-### Installing Your Local Build
+4. Uninstall the marketplace version (if installed) to avoid conflicts
 
-1. Make sure to uninstall the production extension from the marketplace (if installed)
-
-2. Enable the extension in Spicetify:
+5. Load your local build into Spicetify:
    ```bash
    spicetify config extensions dynamic-lights-homeassistant.js
    spicetify apply
    ```
 
-3. Restart Spotify if it's already running.
-
 ### Viewing Logs
 
-The extension uses `console.debug()` for detailed logging and `console.error()` for errors.
-
-1. **Open the DevTools** in Spotify:
-   - Right-click anywhere in the Spotify window and select **"Inspect"**
-   - Or use the keyboard shortcut: **Ctrl+Shift+I** (Windows/Linux) or **Cmd+Option+I** (macOS)
-
-2. **Enable Debug Logs**:
-   - Open the **Console** tab in DevTools
-   - Click the **log level dropdown** at the top left (usually says "Default levels")
-   - Check **"Verbose"** to see `console.debug()` messages
+Open the Spotify DevTools (**Ctrl+Shift+I** or **Cmd+Option+I**), go to the **Console** tab, and set the log level filter to **Verbose** to see `console.debug()` messages.
