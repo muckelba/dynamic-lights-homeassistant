@@ -48,7 +48,7 @@ A [Spicetify](https://spicetify.app/) extension that dynamically sets your RGB l
    - Click on your profile picture in the top right corner
    - Choose "Home Assistant Settings"
    - Fill in the required information:
-     - **Home Assistant URL**: Your full Home Assistant URL (must start with `http://` or `https://`)
+     - **Home Assistant URL**: Your full Home Assistant URL (must start with `https://`!)
      - **Webhook ID**: The ID you copied from the Home Assistant automation
 > [!CAUTION]
 > Please make sure you are _**only**_ pasting the Webhook _**ID**_ and not the Webhook _**URL**_, this will result in a 'Failed to change lights' error.
