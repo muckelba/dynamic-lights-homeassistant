@@ -1,6 +1,6 @@
 {
   "name": "dynamic-lights-homeassistant",
-  "version": "0.2.2",
+  "version": "0.3.2",
   "private": true,
   "scripts": {
     "build": "node build.mjs",
@@ -8,6 +8,14 @@
     "watch": "node build.mjs --watch"
   },
   "license": "MIT",
+  "homepage": "https://github.com/muckelba/dynamic-lights-homeassistant",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:muckelba/dynamic-lights-homeassistant.git"
+  },
+  "bugs": {
+    "url": "https://github.com/muckelba/dynamic-lights-homeassistant/issues"
+  },
   "devDependencies": {
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
