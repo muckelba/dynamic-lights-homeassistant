@@ -1,5 +1,5 @@
-import axios from "axios";
 import React from "react";
+import axios from "axios";
 import HaModal from "./modal";
 import "./styles.scss";
 
@@ -122,4 +122,4 @@ function main(): void {
   ).register();
 }
 
-export default main;
+main();

@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { getSettings, HASettings, LOCAL_STORAGE_KEY } from "./app";
+
+const { useEffect, useState } = React;
 
 // Claude did all the react stuff, i have no clue about react
 const HaModal: React.FC = () => {

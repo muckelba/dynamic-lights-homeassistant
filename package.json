@@ -1,17 +1,27 @@
 {
   "name": "dynamic-lights-homeassistant",
-  "version": "0.2.2",
+  "version": "0.3.2",
   "private": true,
   "scripts": {
-    "build": "spicetify-creator",
-    "build-local": "spicetify-creator --out=dist --minify",
-    "watch": "spicetify-creator --watch"
+    "build": "node build.mjs",
+    "build-local": "node build.mjs --out=dist --minify",
+    "watch": "node build.mjs --watch"
   },
   "license": "MIT",
+  "homepage": "https://github.com/muckelba/dynamic-lights-homeassistant",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:muckelba/dynamic-lights-homeassistant.git"
+  },
+  "bugs": {
+    "url": "https://github.com/muckelba/dynamic-lights-homeassistant/issues"
+  },
   "devDependencies": {
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
-    "spicetify-creator": "^1.0.17"
+    "esbuild": "^0.27.3",
+    "esbuild-sass-plugin": "^3.3.1",
+    "typescript": "^5.8.0"
   },
   "dependencies": {
     "axios": "^1.16.1"
