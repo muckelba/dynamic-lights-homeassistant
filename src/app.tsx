@@ -42,7 +42,7 @@ async function changeHALight(
 
   try {
     await axios.post(url, { rgb: [color.r, color.g, color.b] }, { headers });
-    console.debug(`Set lights to ${color}`);
+    console.debug(`Set lights to rgb(${color.r}, ${color.g}, ${color.b})`);
   } catch (error) {
     console.error("Error turning on light:", error);
     Spicetify.showNotification(`Failed to change lights`, true);
@@ -71,14 +71,27 @@ async function handleSongChange(): Promise<void> {
 
   try {
     // Get color from current track
-    const currentTrack = Spicetify.Player.data.item;
-    const colors = await Spicetify.extractColorPreset(
-      currentTrack.metadata.image_url
-    );
+    const playerData = Spicetify.Player.data;
+    if (!playerData || !playerData.item) {
+      console.debug("No track loaded yet, skipping");
+      return;
+    }
+
+    const currentTrack = playerData.item;
+    const imageUrl = currentTrack.metadata?.image_url;
+    if (!imageUrl) {
+      console.debug("No album art available, skipping");
+      return;
+    }
+
+    const colors = await Spicetify.extractColorPreset(imageUrl);
     const selectedColor = colors[0].colorRaw.rgb;
 
-    // Check if color is the samee
-    if (currentColor === selectedColor) {
+    // Check if color is the same
+    if (currentColor &&
+        currentColor.r === selectedColor.r &&
+        currentColor.g === selectedColor.g &&
+        currentColor.b === selectedColor.b) {
       console.debug("Same color, not changing");
       return;
     }
@@ -94,7 +107,7 @@ async function handleSongChange(): Promise<void> {
 function main(): void {
   Spicetify.Player.addEventListener("songchange", handleSongChange);
   Spicetify.Player.addEventListener("onplaypause", (event) => {
-    if (!event?.data.isPaused) {
+    if (event?.data && !event.data.isPaused) {
       handleSongChange();
     }
   });
